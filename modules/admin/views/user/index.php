@@ -29,29 +29,33 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'username',
                 'label' => 'Пользователь',
             ],
+//            [
+//                'attribute' => 'FIO',
+//                'label' => 'ФИО',
+//                'value' => function ($model) {
+//                    $fio = sprintf('%s %s %s', $model->first_name, $model->last_name, $model->patronymic);
+//                    return $fio;
+//                }
+//            ],
             [
-                'attribute' => 'FIO',
-                'label' => 'ФИО',
-                'value' => function ($model) {
-                    $fio = sprintf('%s %s %s', $model->first_name, $model->last_name, $model->patronymic);
-                    return $fio;
-                }
+                'attribute' => 'user_email',
+                'label' => 'Электронная почта',
             ],
             [
                 'attribute' => 'rank',
                 'label' => 'Департамент (учреждение)',
             ],
+//            [
+//                'attribute' => 'responsibility',
+//                'label' => 'Должность'
+//            ],
             [
-                'attribute' => 'responsibility',
-                'label' => 'Должность'
-            ],
-            [
-                    'attribute' => 'status',
-                    'label' => 'Статус',
-                    'value' => function($model){
-                        return $model->status == 10 ? '<div class="text text-success">Активен</div>' : '<div class="text text-danger">Не активен</div>';
-                    },
-                    'format' => 'html',
+                'attribute' => 'status',
+                'label' => 'Статус',
+                'value' => function ($model) {
+                    return $model->status == 10 ? '<div class="text text-success">Активен</div>' : '<div class="text text-danger">Не активен</div>';
+                },
+                'format' => 'html',
             ],
 
             ['class' => 'yii\grid\ActionColumn'],

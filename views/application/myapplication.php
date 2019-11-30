@@ -76,7 +76,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
             ],
             [
-                'label' => 'Файл публикация',
+                'label' => 'Количество файлов',
                 'format' => 'raw',
                 'value' => function ($model) {
 
@@ -112,7 +112,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
             [
-                'label' => 'Статус приложение',
+                'label' => 'Статус гонорара',
                 'format' => 'raw',
                 'value' => function ($model) {
                     $totalHtml = '';

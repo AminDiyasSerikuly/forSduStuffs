@@ -2,8 +2,9 @@
 
 namespace app\controllers;
 
-use mdm\admin\models\form\Signup;
-//use mdm\admin\models\User;
+use app\models\Application;
+use app\models\AuthAssignment;
+use app\models\UserJson;
 use mdm\admin\models\User;
 use Yii;
 use yii\filters\AccessControl;
@@ -11,10 +12,10 @@ use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm as Login;
-//use app\models\Signup;
+use app\models\Signup;
 use app\models\ContactForm;
 
-class SiteController extends Controller
+class JsonController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -71,16 +72,6 @@ class SiteController extends Controller
         if (Yii::$app->user->can('admin')) {
             return $this->redirect('/application/index');
         }
-
-//        $model = new Signup();
-//        $user = $model->signup();
-//        /** @var User $user */
-//        $user = User::find()->where(['id' => 3]);
-//        var_dump($user->setPassword('hello'));
-
-//        $user->password_hash = Yii::$app->getSecurity()->generatePasswordHash('amin');
-//        $user->save(false);
-
         return $this->render('index');
     }
 
@@ -158,5 +149,24 @@ class SiteController extends Controller
     public function actionAbout()
     {
         return $this->render('about');
+    }
+
+    public function actionGetJson()
+    {
+        /** @var User $user */
+//        $userJson = UserJson::JsonArray();
+//        foreach ($userJson as $userKey => $userValue) {
+//            $user = new User();
+//            $user->username = $userJson[$userKey]['Title and Name (format is first name followed by surname)'];
+//            $user->rank = ($userJson[$userKey]['JobTitle']);
+//            $user->user_email = ($userJson[$userKey]['E-mail address']);
+//            $user->password_hash = Yii::$app->security->generatePasswordHash('password');
+//            if ($user->save(false)) {
+//                $authAssignment = new  AuthAssignment;
+//                $authAssignment->item_name = 'stuff';
+//                $authAssignment->user_id = $user->id;
+//                $authAssignment->save(false);
+//            };
+//        }
     }
 }

@@ -87,7 +87,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
             ],
             [
-                'label' => 'Файл публикация',
+                'label' => 'Количество файлов',
                 'format' => 'raw',
                 'value' => function ($model) {
 
@@ -123,7 +123,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
             [
-                'label' => 'Статус приложение',
+                'label' => 'Статус гонорара',
                 'format' => 'raw',
                 'value' => function ($model) {
                     $totalHtml = '';
@@ -133,22 +133,24 @@ $this->params['breadcrumbs'][] = $this->title;
                         $totalHtml .= '<td>Подтверждено департаментом наук:</td>';
                         $totalHtml .= '<td><div class="btn btn-primary ">В ожидание</div></td>';
                         $totalHtml .= '</tr>';
+
                     }
                     if ($model->status_by_accountant === null) {
                         $totalHtml .= '<tr>';
                         $totalHtml .= '<td>Подтверждено бухгалтерией:</td>';
                         $totalHtml .= '<td><div class="btn btn-primary ">В ожидание</div></td>';
                         $totalHtml .= '</tr>';
-                    } else {
+                    } if($model->status !== null){
                         $totalHtml .= '<tr>';
                         $totalHtml .= '<td>Подтверждено департаментом наук:</td>';
                         $totalHtml .= $model->status == 1 ? '<td><div class="btn btn-success ">Подтвержден</div></td>' : '<td><div class="btn btn-danger ">Отказано</div></td>';
                         $totalHtml .= '</tr>';
+                    }
+                    if($model->status_by_accountant !== null ){
                         $totalHtml .= '<tr>';
                         $totalHtml .= '<td>Подтверждено бухгалтерией:</td>';
                         $totalHtml .= $model->status_by_accountant == 1 ? '<td><div class="btn btn-success ">Подтвержден</div></td>' : '<td><div class="btn btn-danger ">Отказано</div></td>';
                         $totalHtml .= '</tr>';
-
                     }
 
                     $totalHtml .= '</table>';
