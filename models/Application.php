@@ -48,6 +48,7 @@ class Application extends \yii\db\ActiveRecord
     public $type_for_total;
     public $impact_factor_type;
     public $by_role;
+    public $author_array;
 
     /**
      * {@inheritdoc}
@@ -83,7 +84,7 @@ class Application extends \yii\db\ActiveRecord
 //            ['application_edition' , 'required' ,'message'=>'Необходимо заполнить имя приложения.'],
             [['phone_number', 'from_sdu', 'first_auhtor', 'number_of_author', 'is_agree', 'created_at', 'updated_at'], 'integer'],
             [['name', 'surname', 'patronymic', 'rank', 'link_for_application', 'type_of_application', 'application_edition', 'ISSN', 'ISBN', 'DOI_link'], 'string', 'max' => 255],
-            [['by_role','status_by_accountant','google_scholar_url', 'research_gate_url', 'academia_url','publishing_house','number_of_page' ,'pages','user_id' , 'status','DOI_link','publication_name', 'application_image', 'thomson_reuters', 'skopus', 'english_france', 'RKBGM'], 'safe']
+            [['by_role','status_by_accountant','google_scholar_url', 'research_gate_url', 'academia_url','publishing_house','number_of_page' ,'pages','user_id' , 'status','DOI_link','publication_name', 'application_image', 'thomson_reuters', 'skopus', 'english_france', 'RKBGM','author_array'], 'safe']
         ];
     }
 

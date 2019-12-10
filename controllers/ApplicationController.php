@@ -79,6 +79,7 @@ class ApplicationController extends Controller
         $model = new Application();
         $authorModel = new Author();
 
+//        var_dump((Yii::$app->getRequest()->post('Application')['author_array']));
         $user = User::findOne(['id' => Yii::$app->user->getId()]);
         $model->name = (User::findOne(['id' => Yii::$app->user->getId()]))->first_name;
         $model->surname = (User::findOne(['id' => Yii::$app->user->getId()]))->last_name;
@@ -133,11 +134,12 @@ class ApplicationController extends Controller
 
         try {
             if ($model->load(Yii::$app->request->post()) && $model->save()) {
-                $authors = Yii::$app->request->post('Application')['authors'];
+                $authors = Yii::$app->request->post('Application')['author_array'];
 
                 foreach ($authors as $author) {
                     Yii::$app->db->createCommand()->insert('author', [
-                        'full_name' => $author,
+                        'full_name' => $author['author_id'],
+                        'author_position' => $author['author_position'],
                         'application_id' => $model->id,
                     ])->execute();
                 }
@@ -319,7 +321,7 @@ class ApplicationController extends Controller
 //                $notify->application_by_role = 'adminScienceDepartment';
             }
             if (Yii::$app->user->can('accountant')) {
-//                $notify_body = $model->status == 1 ? 'Ваше приложение была подтверждена бухгалтером' : 'Ваше приложение была отказано бухгалтером';
+//                $notify_body = $model->status == 1 ? 'Ваше приложение была подтверждена бухгалтером' : 'Ваше прил ожение была отказано бухгалтером';
                 if ($model->status == 1) {
                     $model->status_by_accountant = Yii::$app->request->post('data');
                 } else {
@@ -330,7 +332,6 @@ class ApplicationController extends Controller
 //                $notify->application_id = Yii::$app->request->get('id');
 //                $notify->application_by_role = 'accountant';
             }
-
             $model->reason_of_rejected = Yii::$app->request->post('reason');
 
             if ($model->save())

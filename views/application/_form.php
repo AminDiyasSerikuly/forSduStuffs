@@ -47,7 +47,8 @@ use limion\jqueryfileupload\JQueryFileUpload;
                 <div class="col-sm-3">
                     <div class="col-sm-12">
                         <h5 style="font-weight: bold; font-family: 'Poppins', sans-serif; font-size: 1.8rem; "
-                            class="text-left">Приложения <span> &#35;<?= \app\models\Application::find()->count()+1; ?> </span></h5>
+                            class="text-left">Приложения
+                            <span> &#35;<?= \app\models\Application::find()->count() + 1; ?> </span></h5>
                         <label for="date" style="float:left; font-family: 'Poppins', sans-serif; color: gray; ">День
                             сдачи: </label>
                         <input class="beauty_input" name='date' type="text" disabled value="<?php
@@ -113,16 +114,24 @@ use limion\jqueryfileupload\JQueryFileUpload;
 
                 <div class="col-sm-12">
                     <div class="row col-sm-12" style="font-size: 1.8rem;">
-                        <?=
-                        $form->field($model, 'authors')->widget(MultipleInput::className(), [
-                            'max' => 6,
-                            'min' => 1, // should be at least 1 rows
-                            'allowEmptyList' => true,
-                            'enableGuessTitle' => false,
-                            'addButtonPosition' => MultipleInput::POS_ROW,
+                        <?= $form->field($model, 'author_array')->widget(MultipleInput::className(), [
+                            'max' => 4,
+                            'columns' => [
+                                [
+                                    'name' => 'author_id',
+                                    'title' => 'ФИО Автора',
 
-                        ])
-                            ->label('Авторы (за исключением себя):');
+                                ],
+                                [
+                                    'name' => 'author_position',
+                                    'title' => 'Позиция автора',
+                                    'enableError' => true,
+                                    'options' => [
+                                        'class' => 'input-priority'
+                                    ]
+                                ]
+                            ]
+                        ]);
                         ?>
 
 
@@ -147,12 +156,13 @@ use limion\jqueryfileupload\JQueryFileUpload;
                         <?= $form->field($model, 'all_page')->textInput()->label('Колво стр: ', ['class' => 'label-class-left']) ?>
                     </div>
                     <div class="col-sm-3 hide-interval">
-                        <?= $form->field($model, 'pages')->textInput()->label('Интервал страниц: ', ['class' => 'label-class-left']) ?>
+                        <?= $form->field($model, 'pages')->textInput()->label('Страницы: ', ['class' => 'label-class-left']) ?>
                     </div>
                 </div>
 
                 <div class="col-sm-12" style="margin-top: 1.5rem;font-size: 1.8rem;">
                     <?= $form->field($model, 'impact_factor_type')->dropDownList([
+                        0 => '',
                         1 => '0 - 0,49',
                         2 => '0,5 - 1,49',
                         3 => '1,5 - 2,49',

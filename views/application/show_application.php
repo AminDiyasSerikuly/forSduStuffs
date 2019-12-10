@@ -35,11 +35,11 @@ $this->params['breadcrumbs'][] = $this->title;
                         <table id="customers">
                             <tr>
                                 <td style="font-weight: bold;">Имя</td>
-                                <td><?= $model->user ? $model->user->first_name :null ?></td>
+                                <td><?= $model->user ? $model->user->first_name : null ?></td>
                             </tr>
                             <tr>
                                 <td style="font-weight: bold;">Фамилия</td>
-                                <td><?=  $model->user ? $model->user->last_name :null  ?></td>
+                                <td><?= $model->user ? $model->user->last_name : null ?></td>
                             </tr>
                             <tr>
                                 <td style="font-weight: bold;">Отчество</td>
@@ -50,42 +50,59 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <td><?= $model->publication_name ?></td>
                             </tr>
                             <tr>
-                                <td style="font-weight: bold;">Авторы</td>
-                                <td>
-                                    <?php $work = User::findOne(['id' => $model->user_id]); ?>
-                                    <?= '1) ' . '<span style="color:red">' . (isset($work) ? ($work->first_name . ' ' . $work->last_name) : null ) . '</span>' . '<br>' ?>
-                                    <?php $counter = 2; ?>
-                                    <?php foreach ($model->author as $author): ?>
-                                        <?= $counter . ') ' . $author->full_name . '<br>' ?>
-                                        <?php $counter++; ?>
-                                    <?php endforeach; ?>
+                                <td style="font-weight: bold;">Ссылка на DOI</td>
+                                <td><a href="<?= $model->DOI_link ?>"><?= $model->DOI_link ?></a></td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: bold;">Ссылка на Google scholar</td>
+                                <td><a href="<?= $model->google_scholar_url ?>"><?= $model->google_scholar_url ?></a>
                                 </td>
                             </tr>
                             <tr>
-                                <td style="font-weight: bold;">Издательство</td>
-                                <td><?= $model->publishing_house ?></td>
+                                <td style="font-weight: bold;">Academia URL</td>
+                                <td><a href="<?= $model->academia_url ?>"><?= $model->academia_url ?></a></td>
                             </tr>
-                        </table>
-                        <div class="card">
-                            <div class="card-body text-center">
-                                <div style="font-size: 2rem;">
-    <p style="display: inline-block">Сумма к оплате:</p> <h4
-            style="display: inline-block; font-size:3rem; font-weight: bold"><span><?= $total_sum ?></span>
-        тг</h4>
-</div>
-<div class="btn-group">
-    <?php if (!Yii::$app->user->can('admin')): ?>
-        <div id="confirm" class=" btn btn-success">Подтверждаю</div>
-        <div id="reject" class="status-button btn btn-danger">Отказать</div>
-    <?php endif; ?>
-</div>
-<div class="form-group text-left" style="font-size: 2rem;">
-    <label for="exampleFormControlTextarea1">Причина отказа</label>
-    <textarea class="form-control" id="exampleFormControlTextarea1"
+                            <tr>
+                                <td style="font-weight: bold;">Ссылка на Reseach Gate</td>
+                                <td><a href="<?= $model->research_gate_url ?>"><?= $model->research_gate_url ?></a></td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: bold;">Авторы</td>
+                                <td>
+                                    <?php $authors = $model->author ?>
+                                    <?php foreach ($authors
+
+                                    as $author): ?>
+    <p style="font-weight: bold"><?= $author->author_position . ')' . '&nbsp;' . $author->full_name  ?></p>
+    <?php endforeach; ?>
+    </td>
+    </tr>
+    <tr>
+        <td style="font-weight: bold;">Издательство</td>
+        <td><?= $model->publishing_house ?></td>
+    </tr>
+    </table>
+    <div class="card">
+        <div class="card-body text-center">
+            <div style="font-size: 2rem;">
+                <p style="display: inline-block">Сумма к оплате:</p> <h4
+                        style="display: inline-block; font-size:3rem; font-weight: bold"><span><?= $total_sum ?></span>
+                    тг</h4>
+            </div>
+            <div class="btn-group">
+                <?php if (!Yii::$app->user->can('admin')): ?>
+                    <div id="confirm" class=" btn btn-success">Подтверждаю</div>
+                    <div id="reject" class="status-button btn btn-danger">Отказать</div>
+                <?php endif; ?>
+            </div>
+            <div class="form-group text-left" style="font-size: 2rem;">
+                <label for="exampleFormControlTextarea1">Причина отказа</label>
+                <textarea class="form-control"
+                          id="exampleFormControlTextarea1" <?= Yii::$app->user->can('admin') ? 'readonly' : '' ?>
               rows="3"><?= $model->reason_of_rejected ?></textarea>
-</div>
-</div>
-</div>
+            </div>
+        </div>
+    </div>
 </div>
 <input type="hidden" id="app_id" value="<?= $model->id ?>">
 
@@ -113,13 +130,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 <button id="complete_intelligence" value="complete_intelligence" class="btn btn-primary">Доп свединие
                 </button>
             </div>
-            <div class="btn-group btn-second-group">
-                <button id="google_scholar_url" value="google_scholar_url" class="btn btn-default">Google Scholar Url
-                </button>
-                <button id="academia_url" value="academia_url" class="btn btn-default">Academia Url</button>
-                <button id="research_gate_url" value="research_gate_url" class="btn btn-default">ResearchGate Url
-                </button>
-            </div>
+            <!--            <div class="btn-group btn-second-group">-->
+            <!--                <button id="google_scholar_url" value="google_scholar_url" class="btn btn-default">Google Scholar Url-->
+            <!--                </button>-->
+            <!--                <button id="academia_url" value="academia_url" class="btn btn-default">Academia Url</button>-->
+            <!--                <button id="research_gate_url" value="research_gate_url" class="btn btn-default">ResearchGate Url-->
+            <!--                </button>-->
+            <!--            </div>-->
         </div>
     </div>
 </div>
