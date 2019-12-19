@@ -65,6 +65,7 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+
         if (Yii::$app->user->can('stuff')) {
             return $this->redirect('/application/create');
         }
